@@ -14,6 +14,9 @@
       <li class="nav-item" :class="{ active: $route.name == 'Jobs' }">
         <router-link :to="{ name: 'Jobs' }" class="nav-link">Jobs</router-link>
       </li>
+      <li class="nav-item" :class="{ active: $route.name == 'Homes' }">
+        <router-link :to="{ name: 'Homes' }" class="nav-link">Homes</router-link>
+      </li>
     </ul>
   </nav>
 </template>

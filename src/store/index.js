@@ -8,9 +8,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     cars: [],
-    activeCar: {}
+    activeCar: {},
+    jobs: [],
+    activeJob: {},
   },
   mutations: {
+    //cars
     setCars(state, cars) {
       state.cars = cars
     },
@@ -22,9 +25,23 @@ export default new Vuex.Store({
     },
     removeCar(state, id) {
       state.cars = state.cars.filter(c => c.id != id)
+    },
+    //jobs
+    setJobs(state, jobs) {
+      state.jobs = jobs
+    },
+    addJob(state, job) {
+      state.jobs.push(job)
+    },
+    setActiveJob(state, job) {
+      state.activeJob = job
+    },
+    removeJob(state, id) {
+      state.jobs = state.jobs.filter(c => c.id != id)
     }
   },
   actions: {
+    //cars
     async getAllCars({ commit }) {
       try {
         let res = await api.get('cars')
@@ -73,6 +90,23 @@ export default new Vuex.Store({
         router.push({ name: "Cars" })
       } catch (error) {
         console.error(error)
+      }
+    },
+    //jobs
+    async getAllJobs({commit}){
+      try {
+        let res = await api.get('jobs')
+        commit('setJobs', res.data.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async createJob({ commit}, newJob){
+      try {
+        let res = await api.post('jobs', newJob)
+        commit("addJob", res.data.data)
+      } catch (error) {
+        
       }
     }
   }
